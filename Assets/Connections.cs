@@ -6,6 +6,8 @@ using UnityEngine;
 public class Connections : MonoBehaviour
 {
     public List<GameObject> connectionPoints = new List<GameObject>();
+
+    GameObject activeConnectionPoint;
     
     // Start is called before the first frame update
     void Start()
@@ -38,7 +40,7 @@ public class Connections : MonoBehaviour
                     if (newDistance < distance)
                     {
                         connect1 = connectionPoints[i];
-                        connect2 = otherSet.connectionPoints[j];
+                        //connect2 = otherSet.connectionPoints[j];
                         distance = newDistance;
                     }
                 }
@@ -46,7 +48,15 @@ public class Connections : MonoBehaviour
 
             if (connect1 != null)
             {
-                connect1.SetActive(true);
+                if (activeConnectionPoint != connect1)
+                {
+                    if (activeConnectionPoint != null)
+                    {
+                        activeConnectionPoint.SetActive(false);
+                    }
+                    activeConnectionPoint = connect1;
+                    connect1.SetActive(true);
+                }                
             }
         }
     }
